@@ -1,2 +1,2 @@
 # ArduinoThings
-Some arduino things I've made
+Some arduino sketches I've made
