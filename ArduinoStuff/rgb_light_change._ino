@@ -1,0 +1,51 @@
+enum Colors
+{
+	Blue = 9,
+	Green,
+	Red
+};
+
+uint_least8_t current_color_red = 100;
+uint_least8_t current_color_blue = 100;
+uint_least8_t current_color_green = 100;
+uint_least8_t* current_write_color_ptr;
+Colors current_mod_color = Colors::Blue;
+
+// the setup function runs once when you press reset or power the board
+void setup() {
+	// initialize digital pin 13 as an output.
+	pinMode(Colors::Red, OUTPUT);
+	pinMode(Colors::Blue, OUTPUT);
+	pinMode(Colors::Green, OUTPUT);
+}
+
+// the loop function runs over and over again forever
+void loop() {
+	switch (current_mod_color)
+	{
+	case (Colors::Blue):
+		current_write_color_ptr = &current_color_blue;
+		// Set Next Iter Color
+		current_mod_color = Colors::Green;
+		break;
+
+	case (Colors::Red):
+		current_write_color_ptr = &current_color_red;
+		current_mod_color = Colors::Blue;
+		break;
+
+	case (Colors::Green):
+		current_write_color_ptr = &current_color_green;
+		current_mod_color = Colors::Red;
+		break;
+	}
+
+	for (int i = 30; i < 200; i += 4)
+	{
+		*current_write_color_ptr = i;
+		analogWrite(Colors::Red, current_color_red);
+		analogWrite(Colors::Blue, current_color_blue);
+		analogWrite(Colors::Green, current_color_green);
+		delay(100);
+	}
+}
